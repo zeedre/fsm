@@ -127,9 +127,12 @@ Array
     [4] => rep : paaarty : :( : done
 )
 ```
+Nice! the happy path. Always works... Usually.
+
 But what if everything goes wrong...
 ```
 $salesProcess->setStateObj(new lead("lead from early morning source"));
+
 $salesProcess->transit("call_customer", "called at 2am");
 $salesProcess->transit("sell_to_customer", "Oo, I think its too early, got earful, never call again");
 $salesProcess->transit("done", "umm, shouldnt of called at 2am");
@@ -150,7 +153,7 @@ Array
 ```
 The boss might have something to say . . .
 
-So, the real joy here is that there is not a single if statement to support these complex logical paths. Think about that.
+So, the real joy here is that there is not a single if statement to support these complex logical paths. Think about how awesome it is to get rid of ifs. Suddenly the code is hugely testeable!
 
 ##Some settings
 
@@ -159,12 +162,17 @@ You can log by adding a log setting :
 $salesProcess->addSetting("log", $calleable); // can be a lambda, string, or array
 ```
 
-You may want to have a set naming scheme for your classes. So, instead of having a class named start, you could set the
+You may want to have a set naming scheme for your classes. So, instead of having a class named start, you might prefer sales_state_start, you could set the
 ```
-$salesProcess->addSetting("class_prefix", 'tst_state_');
+$salesProcess->addSetting("class_prefix", 'sales_state_');
+```
+Currently state classes assume are already loaded or are available via some autoloader. Alternatively, you might want to specify a factory method for your classes via a calleable :
 ```
 
-You might want to specify a factory method for your classes :
-```
+$calleable = function($name) use ($db){
+  require_once("classes/$name.php");
+  return new $name($db);
+}
+
 $salesProcess->set("state_class_factory", $calleable);
 ```
