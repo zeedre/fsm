@@ -161,14 +161,12 @@ You can log by adding a log setting :
 ```
 $salesProcess->addSetting("log", $calleable); // can be a lambda, string, or array
 ```
-
 You may want to have a set naming scheme for your classes. So, instead of having a class named start, you might prefer sales_state_start, you could set the
 ```
 $salesProcess->addSetting("class_prefix", 'sales_state_');
 ```
 Currently state classes assume are already loaded or are available via some autoloader. Alternatively, you might want to specify a factory method for your classes via a calleable :
 ```
-
 $calleable = function($name) use ($db){
   require_once("classes/$name.php");
   return new $name($db);
@@ -176,3 +174,5 @@ $calleable = function($name) use ($db){
 
 $salesProcess->set("state_class_factory", $calleable);
 ```
+
+I've got most of the unit tests working. Coming soon!
