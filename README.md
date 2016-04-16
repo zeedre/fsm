@@ -47,7 +47,11 @@ This is all nice but really nothing will happen. Lets turn effects on which mean
 ```
 $fsm->addSetting("effects", true);
 ```
-Now we need to define the code for when these state transitions occur. Lets create some classes. Note the names of the class is the current state, the name of the function is the state being transitioned to.
+Now we need to define the code for when these state transitions occur. Lets create some classes. Note :
+- the *name* of the class is the *current state*,
+- the *name* of the function is the *state* being transitioned to
+- return *true* to complete the state transition or *false* for leaving the tracked object in its current state (ie if something prevented the state change).
+
 ```
 class start {
   function call_customer($lead, $info){
@@ -153,7 +157,11 @@ Array
 ```
 The boss might have something to say . . .
 
-So, the real joy here is that there is not a single if statement to support these complex logical paths. Think about how awesome it is to get rid of ifs. Suddenly the code is hugely testeable!
+So, the real joy here is that there is not a single if statement to support these complex logical paths.
+
+In this simple example, there are 3 ways to get to the end state. Each way has a different set of code that runs when that transition is called.
+
+Think about how awesome it is to get rid of ifs. Suddenly the code is hugely testeable!  
 
 ##Some settings
 
@@ -161,7 +169,7 @@ You can log by adding a log setting :
 ```
 $salesProcess->addSetting("log", $calleable); // can be a lambda, string, or array
 ```
-You may want to have a set naming scheme for your classes. So, instead of having a class named start, you might prefer sales_state_start, you could set the
+You may want to have a set naming scheme for your classes. So, instead of having a class named start, you might prefer sales_state_start :
 ```
 $salesProcess->addSetting("class_prefix", 'sales_state_');
 ```
@@ -175,4 +183,5 @@ $calleable = function($name) use ($db){
 $salesProcess->set("state_class_factory", $calleable);
 ```
 
-I've got most of the unit tests working. Coming soon!
+I've got most of the unit tests working. Coming soon! phpunit tests.
+Try most of this example php tryme.php.
