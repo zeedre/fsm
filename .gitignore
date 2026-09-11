@@ -1,0 +1,45 @@
+# =========================================================================
+# COMPOSER DEPENDENCIES
+# =========================================================================
+# Never commit the vendor directory. It contains third-party packages that
+# should be installed dynamically via 'composer install'.
+/vendor/
+
+# If you use a local composer.phar executable, ignore it too.
+composer.phar
+
+# =========================================================================
+# APPLICATION ENVIRONMENT & CREDENTIALS
+# =========================================================================
+# Sensitive configuration files containing passwords, API keys, and secrets.
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# =========================================================================
+# DEVELOPMENT & TESTING TOOLS
+# =========================================================================
+# Local caching, coverage reports, and testing artifacts
+/.phpunit.result.cache
+/html/
+/coverage/
+/.php-cs-fixer.cache
+/.phpstan.cache
+/.psalm/
+
+# =========================================================================
+# OS & IDE SPECIFIC FILES (Optional but recommended)
+# =========================================================================
+# JetBrains / PHPStorm
+.idea/
+
+# VS Code
+.vscode/
+*.code-workspace
+
+# Operating System files
+.DS_Store
+Thumbs.db
+
