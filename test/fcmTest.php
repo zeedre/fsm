@@ -7,6 +7,7 @@ require_once("test/tst_state.php");
 
 class FCMtest extends TestCase
 {
+	private $fsm;
 
 	function setUp(): void
 	{
@@ -23,19 +24,15 @@ class FCMtest extends TestCase
 		$this->assertTrue($this->fsm->getState() == 'start', "must start in state 'start'");
 	}
 
-	/**
-	 * @expectedException fsm_no_states_defined
-	 */
 	public function testTransitwNoConfigFSMErrror()
 	{
+		$this->expectException(fsm_no_states_defined::class);
 		$this->fsm->transit("undefindedstate");
 	}
 
-	/**
-	 * @expectedException fsm_illegal_transition_attempt
-	 */
 	public function testTransitNowhereSendsFSMErrror()
 	{
+		$this->expectException(fsm_illegal_transition_attempt::class);
 		$this->fsm->addState("start", array());
 		$this->fsm->transit("undefindedstate");
 	}
@@ -137,7 +134,7 @@ class FCMtest extends TestCase
 		$this->fsm->addSetting("effects", true);
 		$this->fsm->addSetting("class_prefix", 'tst_state_');
 		$log_obj = new tst_log;
-		$this->fsm->addSetting("logging", array($log_obj, "class_log"));
+		$this->fsm->addSetting("log", array($log_obj, "class_log"));
 		$this->fsm->addState("start", array("step1" => array("auto_next_state" => "done")));
 		$this->fsm->addState(
 			"step1",

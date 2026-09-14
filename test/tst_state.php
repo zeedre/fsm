@@ -30,6 +30,10 @@
 		function __invoke(){
 			tst_state::$calls[] = __class__ . "::" . 'class_logging';
 		}
+		
+		function class_log($msg){
+			tst_state::$calls[] = __class__ . "::" . 'class_log';
+		}
 	}
 		
 	function test_logging(){
