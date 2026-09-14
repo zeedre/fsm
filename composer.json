@@ -1,5 +1,6 @@
 {
     "name": "dre/fsm",
+    "root": "1.0.0",
     "type": "library",
     "require": {},
     "require-dev": {
